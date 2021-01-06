@@ -1,0 +1,14 @@
+self.cam_model.fromCameraInfo(self.info_msg)
+cam_model_point = self.cam_model.projectPixelTo3dRay(self.cam_model.rectifyPoint((X_pixel,Y_pixel)))
+point_msg.pose.position.x=cam_model_point[0] + camera.position.x
+point_msg.pose.position.y=cam_model_point[1] + camera.position.y
+point_msg.pose.position.z=cam_model_point[2] + camera.position.z
+point_msg.pose.orientation.x=0
+point_msg.pose.orientation.y=0
+point_msg.pose.orientation.z=0
+point_msg.pose.orientation.w=1
+point_msg.header.stamp = rospy.Time.now()
+point_msg.header.frame_id = self.cam_model.tfFrame()
+    try:
+    self.listener.waitForTransform(self.cam_model.tfFrame(), "/world", rospy.Time.now(), rospy.Duration(10.0))
+    tf_point = self.listener.transformPose("world", point_msg)

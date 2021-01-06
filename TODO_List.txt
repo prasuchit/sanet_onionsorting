@@ -1,0 +1,3 @@
+Remove hardcoded paths
+Add indices to saved image so we can keep track of multiple images
+

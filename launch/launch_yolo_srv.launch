@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<!-- Author: Prasanth Suresh (ps32611@uga.edu); -->
+<!-- Description: Runs the rosservice to get yolo predictions -->
+<!-- Do not edit/replicate without permission -->
+
+<launch>
+
+<node pkg="rosservice" type="rosservice" name="yolo_service" args="call --wait /get_predictions" />
+
+</launch>
