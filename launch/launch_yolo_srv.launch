@@ -5,7 +5,7 @@
 <!-- Do not edit/replicate without permission -->
 
 <launch>
-
-<node pkg="rosservice" type="rosservice" name="yolo_service" args="call --wait /get_predictions" />
-
+<arg name="weights" default="gazebo"/>
+<node pkg="sanet_onionsorting" type="yolo_service.py" name="yolo_service" args="$(arg weights)"/>
+<node pkg="sanet_onionsorting" type="rgbd_imgpoint_to_tf.py" name="yolo_client"/>
 </launch>

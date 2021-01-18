@@ -45,7 +45,7 @@ class Camera():
         # cv2.setMouseCallback("Image window", self.mouse_callback)
         # self.br = tf.TransformBroadcaster()
         # self.lis = tf.TransformListener()
-        # # Have we recieved camera_info and image yet?
+        # # Have we processed the camera_info and image yet?
         # self.ready_ = False
 
         tfBuffer = tf2_ros.Buffer()
@@ -111,7 +111,7 @@ class Camera():
             self.OBlobs_z = []
 
     def getCam2Worldtf(self):
-        
+        print("Camera frame is: ",self.get_tf_frame())
         for i in range(len(self.poses)):
             camerapoint =  tf2_geometry_msgs.tf2_geometry_msgs.PoseStamped()
             camerapoint.header.frame_id = self.get_tf_frame()
@@ -264,12 +264,15 @@ def main():
             print '\nUpdating YOLO predictions...\n'
             gip_service = rospy.ServiceProxy("/get_predictions", yolo_srv)
             response = gip_service()
-            print '\nCentroid of onions: [x1,x2...],[y1,y2...] \n',response.centx, response.centy
-            #camera = Camera('usb_cam', '/kinect2/qhd/image_color', '/kinect2/qhd/camera_info')
-            #NEW
-            camera = Camera('kinectv2', '/kinect_V2/rgb/image_raw', '/kinect_V2/depth/image_raw', '/kinect_V2/rgb/camera_info', response)
-            # camera = Camera('kinectv2', '/kinect2/hd/image_color_rect', '/kinect2/hd/image_depth_rect', '/kinect2/hd/camera_info')    # Real kinect - this works
-            rospy.sleep(5)
+            if len(response.centx) > 0:
+                print '\nCentroid of onions: [x1,x2...],[y1,y2...] \n',response.centx, response.centy
+                #camera = Camera('usb_cam', '/kinect2/qhd/image_color', '/kinect2/qhd/camera_info')
+                #NEW
+                camera = Camera('kinectv2', '/kinect_V2/rgb/image_raw', '/kinect_V2/depth/image_raw', '/kinect_V2/rgb/camera_info', response)
+                # camera = Camera('kinectv2', '/kinect2/hd/image_color_rect', '/kinect2/hd/image_depth_rect', '/kinect2/hd/camera_info')    # Real kinect - this works
+                rospy.sleep(5)
+            else:
+                print '\nWaiting for detections from yolo'
             # rospy.spin()
 
     except rospy.ROSInterruptException:

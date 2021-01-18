@@ -1,9 +1,0 @@
-512x640 3 blemisheds, Done. (6.041s)
-Results saved to /home/psuresh//home/psuresh/catkin_ws/src/sanet_onionsorting/thirdparty/yolov5/inference/output
-Done. (6.097s)
-
-Returned Predictions: 
- [tensor([[173.89127, 267.20331, 225.22009, 319.48065,   0.90019,   0.00000],
-        [286.78555, 266.31204, 337.72507, 318.25882,   0.89122,   0.00000],
-        [229.23395, 267.84973, 279.86194, 319.81256,   0.86497,   0.00000]])]
-
