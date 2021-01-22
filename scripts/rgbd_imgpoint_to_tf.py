@@ -252,6 +252,7 @@ class Camera():
 
         @return     Orthogonal ray and 3D pose wrt camera.
         """
+        ray = self.get_ray(uv_rect)
         pose = self.get_position_from_ray(ray,depth)
         return ray, pose
 
@@ -316,7 +317,7 @@ class Camera():
                     depth_distances.append(np.median(roi))
 
                 if not np.isnan(depth_distances).any():
-                    print "\nNo Nan values in depth values\n"
+                    # print "\nNo Nan values in depth values\n"
                     break
 
         # print('distance (crowflies) from camera to point: {}m'.format(depth_distances))
